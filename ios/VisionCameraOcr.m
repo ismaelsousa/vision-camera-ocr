@@ -4,17 +4,4 @@
 
 #import "VisionCameraOcr-Swift.h"
 
-@interface OCRFrameProcessorPlugin (FrameProcessorPluginLoader)
-@end
-
-@implementation OCRFrameProcessorPlugin (FrameProcessorPluginLoader)
-
-+ (void)load
-{
-    [FrameProcessorPluginRegistry addFrameProcessorPlugin:@"scanOCR"
-                                        withInitializer:^FrameProcessorPlugin* (VisionCameraProxyHolder* proxy, NSDictionary* options) {
-        return [[OCRFrameProcessorPlugin alloc] initWithProxy:proxy withOptions:options];
-    }];
-}
-
-@end
+VISION_EXPORT_SWIFT_FRAME_PROCESSOR(OCRFrameProcessorPlugin, scanOCR)
