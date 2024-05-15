@@ -2,7 +2,13 @@
 #import <VisionCamera/FrameProcessorPlugin.h>
 #import <VisionCamera/FrameProcessorPluginRegistry.h>
 
+// use_framework! import
+#if __has_include(<VisionCameraOcr/VisionCameraOcr-Swift.h>)
+#import "VisionCameraOcr/VisionCameraOcr-Swift.h"
+#endif
+#if __has_include("VisionCameraOcr-Swift.h")
 #import "VisionCameraOcr-Swift.h"
+#endif
 
 @interface OCRFrameProcessorPlugin (FrameProcessorPluginLoader)
 @end
