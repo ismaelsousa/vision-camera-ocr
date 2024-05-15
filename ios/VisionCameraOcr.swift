@@ -4,6 +4,10 @@ import MLKitVision
 import MLKitTextRecognition
 import CoreImage
 import UIKit
+// use_framework! import
+#if canImport(VisionCamera)
+import VisionCamera
+#endif
 
 @objc(OCRFrameProcessorPlugin)
 public class OCRFrameProcessorPlugin: FrameProcessorPlugin {
