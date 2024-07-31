@@ -122,33 +122,19 @@ public class OCRFrameProcessorPlugin: FrameProcessorPlugin {
     
     public override func callback(_ frame: Frame, withArguments arguments: [AnyHashable: Any]?) -> Any? {
         
-        guard let imageBuffer = CMSampleBufferGetImageBuffer(frame.buffer) else {
-          print("Failed to get image buffer from sample buffer.")
-          return nil
-        }
-
-        let ciImage = CIImage(cvPixelBuffer: imageBuffer)
-        
-        guard let cgImage = CIContext().createCGImage(ciImage, from: ciImage.extent) else {
-            print("Failed to create bitmap from image.")
-            return nil
-        }
-        
-        let image = UIImage(cgImage: cgImage)
-       
-        let visionImage = VisionImage(image: image)
+        let visionImage = VisionImage(buffer: frame.buffer)
         
         // Set the orientation of visionImage to the opposite of the frame's orientation
         // Opposite compare to the `up` orientation
         switch frame.orientation {
-        case .left:
-            visionImage.orientation = .right
-        case .right:
-            visionImage.orientation = .left
-        case .up, .down:
-            fallthrough
-        
-        default: visionImage.orientation = frame.orientation
+            case .left:
+                visionImage.orientation = .right
+            case .right:
+                visionImage.orientation = .left
+            case .up, .down:
+                fallthrough
+            
+            default: visionImage.orientation = frame.orientation
         }
         
         var result: Text
